@@ -122,46 +122,9 @@ export default function DonationPopup() {
                 </div>
               </div>
 
-              {/* Custom Amount */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 text-center">Custom Amount</h3>
-                <div className="flex gap-2">
-                  <input
-                    type="number"
-                    value={customAmount}
-                    onChange={(e) => setCustomAmount(e.target.value)}
-                    placeholder="Enter amount in ₹"
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-center text-lg font-semibold"
-                    min="10"
-                  />
-                  <button 
-                    onClick={handleCustomDonation}
-                    className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition duration-200 min-w-20"
-                  >
-                    Donate
-                  </button>
-                </div>
-              </div>
+             
 
-              {/* UPI ID Display */}
-              <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                <p className="text-sm text-gray-600 mb-2 text-center">Or send directly to UPI ID:</p>
-                <div className="flex items-center justify-between bg-white p-3 rounded border-2 border-green-200">
-                  <code className="text-green-600 font-mono font-bold text-lg">kashidarshan@upi</code>
-                  <button 
-                    onClick={() => {
-                      navigator.clipboard.writeText('kashidarshan@upi');
-                      alert('UPI ID copied to clipboard! 📋');
-                    }}
-                    className="text-green-600 hover:text-green-700 p-2 rounded-lg hover:bg-green-50 transition duration-200"
-                    title="Copy UPI ID"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              
 
               {/* Impact Message */}
               <div className="text-center bg-green-50 rounded-lg p-4 border border-green-200">
