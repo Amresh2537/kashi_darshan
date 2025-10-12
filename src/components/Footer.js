@@ -1,4 +1,6 @@
 // src/components/Footer.js
+import DonationPopup from './DonationPopup';
+
 export default function Footer() {
   return (
     <footer id="contact" className="bg-orange-900 text-white">
@@ -11,7 +13,7 @@ export default function Footer() {
             </p>
             <div className="space-y-2 text-sm">
               <p><strong>WhatsApp:</strong> +91 63928 38207</p>
-              <p><strong>Contact Person:</strong> Krishnakant - +91 9625775972</p>
+              <p><strong>Contact Person:</strong> Krishnakant - +91 96257 75962</p>
             </div>
           </div>
           
@@ -29,19 +31,19 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2 text-amber-100">
               <li>Email: krishnakantk90@gmail.com</li>
-              <li>Phone: +91-9625775972</li>
+              <li>Phone: +91 9625776962</li>
               <li>Varanasi, Uttar Pradesh</li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Donation & Feedback</h4>
-            <p className="text-amber-100 text-sm mb-3">
-              Support our food distribution (bhandara) at the shelter for the poor and orphans.
-            </p>
-            <button className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded transition duration-300">
-              Make Donation
-            </button>
+            <h4 className="text-lg font-semibold mb-4">Support Our Cause</h4>
+            <div className="bg-amber-800/30 rounded-lg p-4 mb-4">
+              <p className="text-amber-100 text-sm mb-3 leading-relaxed">
+                "If you wish, you may make a donation from your own will for the food distribution (bhandara) at the shelter for the poor and orphans."
+              </p>
+              <DonationPopup />
+            </div>
           </div>
         </div>
         

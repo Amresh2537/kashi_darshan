@@ -50,8 +50,8 @@ export default function ThankYou() {
             For immediate assistance, contact us at:
           </p>
           <div className="flex justify-center space-x-4 mt-2">
-            <a href="tel:+919625775972" className="text-orange-600 hover:text-orange-700 text-sm">
-              📞 +91 96257 75972
+            <a href="tel:+919625775962" className="text-orange-600 hover:text-orange-700 text-sm">
+              📞 +91 96257 75962
             </a>
             <a href="https://wa.me/916392838207" className="text-green-600 hover:text-green-700 text-sm">
               💬 WhatsApp

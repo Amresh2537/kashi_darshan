@@ -57,22 +57,6 @@ export default function BookingForm() {
     }
   };
 
-  // Calculate estimated price
-  const calculatePrice = () => {
-    let total = 0;
-    
-    if (formData.roomType === 'ac') total += 2399;
-    else if (formData.roomType === 'non-ac') total += 1699;
-    
-    if (formData.templePackage === 'kal-bhairav') total += 4599;
-    else if (formData.templePackage === 'sankat-mochan') total += 6500;
-    else if (formData.templePackage === 'complete') total += 7500;
-    
-    return total;
-  };
-
-  const estimatedPrice = calculatePrice();
-
   return (
     <section id="booking" className="py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -85,14 +69,6 @@ export default function BookingForm() {
           {submitStatus === 'error' && (
             <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center">
               <p>❌ There was an error submitting your request. Please try again or contact us directly.</p>
-            </div>
-          )}
-
-          {estimatedPrice > 0 && (
-            <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-              <h3 className="text-lg font-semibold text-amber-800 mb-2">Estimated Price</h3>
-              <p className="text-2xl font-bold text-amber-600">₹{estimatedPrice}/-</p>
-              <p className="text-sm text-amber-700 mt-1">*Final price may vary based on actual requirements</p>
             </div>
           )}
 
@@ -189,7 +165,7 @@ export default function BookingForm() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="">Select Room Type</option>
-                  <option value="ac">AC Room - 2399/- per day</option>
+                  <option value="ac">AC Room - 2399/-per day</option>
                   <option value="non-ac">Non-AC Room - 1699/- per day</option>
                 </select>
               </div>
@@ -202,9 +178,70 @@ export default function BookingForm() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="">Select Temple Package</option>
-                  <option value="kal-bhairav">Kal Bhairav Mandir - 4599/-</option>
-                  <option value="sankat-mochan">Sankat Mochan - 6500/-</option>
-                  <option value="complete">Complete Temple Tour - 7500/-</option>
+                  
+                  {/* Complete Packages */}
+                  <optgroup label="🎯 Complete Experience Packages">
+                    <option value="complete-all">Complete Kashi Darshan (All Major Temples + Ghats)</option>
+                    <option value="premium-darshan">Premium Spiritual Journey (VIP Darshan + Guide)</option>
+                    <option value="basic-darshan">Basic Temple Tour (10 Major Temples)</option>
+                  </optgroup>
+
+                  {/* Major Temple Packages */}
+                  <optgroup label="🛕 Major Temple Packages">
+                    <option value="vishwanath-special">Kashi Vishwanath Special Darshan</option>
+                    <option value="all-mandirs">All Major Temples Package</option>
+                    <option value="shakti-peeth">Shakti Peeth Temples (Durga, Annapurna, Vishalakshi)</option>
+                    <option value="hanuman-bhakti">Hanuman Bhakti (Sankat Mochan + Others)</option>
+                  </optgroup>
+
+                  {/* Individual Major Temples */}
+                  <optgroup label="🌟 Individual Major Temples">
+                    <option value="kashi-vishwanath">Kashi Vishwanath Temple</option>
+                    <option value="sankat-mochan">Sankat Mochan Hanuman Temple</option>
+                    <option value="kaal-bhairav">Kaal Bhairav Temple</option>
+                    <option value="durga-mata">Durga Mata Temple (Monkey Temple)</option>
+                    <option value="annapurna-mandir">Annapurna Mandir</option>
+                    <option value="vishalakshi-mata">Shri Vishalakshi Mata Mandir</option>
+                    <option value="tulsi-manas">Tulsi Manas Temple</option>
+                    <option value="bharat-mata">Bharat Mata Mandir</option>
+                  </optgroup>
+
+                  {/* Ghat Experiences */}
+                  <optgroup label="🌅 Ghat Experiences">
+                    <option value="ghat-aarti">Evening Ganga Aarti Experience</option>
+                    <option value="morning-ghats">Morning Ghats Tour (Boat Ride)</option>
+                    <option value="all-ghats">All Major Ghats Tour</option>
+                    <option value="dashashwamedh">Dashashwamedh Ghat Special</option>
+                    <option value="assi-ghat">Assi Ghat Cultural Experience</option>
+                    <option value="manikarnika">Manikarnika Ghat Visit</option>
+                    <option value="namo-ghat">Namo Ghat with Aarti</option>
+                    <option value="panchganga-ghat">Panchganga Ghat Visit</option>
+                  </optgroup>
+
+                  {/* Special Poojas & Rituals */}
+                  <optgroup label="🕉️ Special Poojas & Rituals">
+                    <option value="gangaa-aarti">Special Ganga Aarti Participation</option>
+                    <option value="rudrabhishek">Rudrabhishek Pooja</option>
+                    <option value="mahamrityunjaya">Mahamrityunjaya Jaap</option>
+                    <option value="sunderkand-paath">Sunderkand Paath</option>
+                    <option value="havan">Havan Ceremony</option>
+                    <option value="pitru-tarpan">Pitru Tarpan (Ancestral Ritual)</option>
+                    <option value="ganga-snan">Ganga Snan with Pooja</option>
+                  </optgroup>
+
+                  {/* Buddhist Circuit */}
+                  <optgroup label="☸️ Buddhist Circuit">
+                    <option value="sarnath-tour">Sarnath Complete Tour</option>
+                    <option value="buddhist-circuit">Buddhist Circuit (Sarnath + Temples)</option>
+                  </optgroup>
+
+                  {/* Custom Combinations */}
+                  <optgroup label="🔧 Custom Combinations">
+                    <option value="custom-temples">Custom Temple Selection</option>
+                    <option value="custom-ghats">Custom Ghats Experience</option>
+                    <option value="mixed-package">Mixed Temple + Ghat Package</option>
+                  </optgroup>
+
                 </select>
               </div>
             </div>
