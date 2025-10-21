@@ -1,6 +1,15 @@
 // src/app/thank-you/page.js
 import Link from 'next/link';
 
+export const metadata = {
+  title: 'Thank You - KashiDarshan | Booking Confirmation',
+  description: 'Thank you for booking with KashiDarshan. Your spiritual journey to Kashi is confirmed.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function ThankYou() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center px-4">
