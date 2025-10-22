@@ -1,6 +1,6 @@
 // src/app/sitemap.js
 export default function sitemap() {
-  const baseUrl = 'https://kashidarshan.com'; // Replace with your actual domain
+  const baseUrl = 'https://www.kashidarshan.org'; // Updated to your actual domain
   
   return [
     {
