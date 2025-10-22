@@ -13,7 +13,7 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://kashidarshan.com'),
+  metadataBase: new URL('https://www.kashidarshan.org'),
   alternates: {
     canonical: '/',
     languages: {
@@ -23,7 +23,7 @@ export const metadata = {
   openGraph: {
     title: 'KashiDarshan - Spiritual Journey to Kashi',
     description: 'Book your spiritual journey to Kashi with premium accommodation and guided temple visits',
-    url: 'https://kashidarshan.com',
+    url: 'https://www.kashidarshan.org',
     siteName: 'KashiDarshan',
     images: [
       {
@@ -77,7 +77,7 @@ export default function RootLayout({ children }) {
               "@type": "TravelAgency",
               "name": "KashiDarshan",
               "description": "Spiritual Journey to Kashi with premium accommodation and guided temple visits",
-              "url": "https://kashidarshan.com",
+              "url": "https://www.kashidarshan.org",
               "telephone": "+91-96257-75972",
               "address": {
                 "@type": "PostalAddress",
