@@ -1,13 +1,27 @@
 // src/components/Gallery.js
+'use client';
+
 import Image from 'next/image';
 
 export default function Gallery() {
   const images = [
     {
-      src: "/Mata Durga Temple.jpeg",
-      alt: "Mata Durga Temple",
-      title: "Mata Durga Temple",
-      description: "Also known as Monkey Temple, built in North Indian Nagara style"
+      src: "/Kal Bhairav Temple.jpeg",
+      alt: "Kal Bhairav Temple", 
+      title: "Kal Bhairav Temple",
+      description: "Temple dedicated to the fierce form of Lord Shiva"
+    },
+    {
+      src: "/Shri Kashi Vishwanath Temple.jpeg",
+      alt: "Kashi Vishwanath Temple",
+      title: "Kashi Vishwanath Temple",
+      description: "The most sacred temple dedicated to Lord Shiva, spiritual heart of Varanasi"
+    },
+    {
+      src: "/Arti.jpeg",
+      alt: "Ganga Aarti", 
+      title: "Ganga Aarti",
+      description: "Divine evening Ganga Aarti ceremony at the ghats"
     },
     {
       src: "/Sankant Mochan.jpeg", 
@@ -16,16 +30,10 @@ export default function Gallery() {
       description: "Dedicated to Lord Hanuman, built by Pandit Madan Mohan Malviya"
     },
     {
-      src: "/Kal Bhairav Temple.jpeg",
-      alt: "Kal Bhairav Temple", 
-      title: "Kal Bhairav Temple",
-      description: "Temple dedicated to the fierce form of Lord Shiva"
-    },
-    {
-      src: "/Arti.jpeg",
-      alt: "Ganga Aarti", 
-      title: "Ganga Aarti",
-      description: "Divine evening Ganga Aarti ceremony at the ghats"
+      src: "/Mata Durga Temple.jpeg",
+      alt: "Mata Durga Temple",
+      title: "Mata Durga Temple",
+      description: "Also known as Monkey Temple, built in North Indian Nagara style"
     },
     {
       src: "/Sarnath.jpeg",
