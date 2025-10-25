@@ -54,7 +54,7 @@ export default function Gallery() {
       description: "Dedicated to Annapurna, the goddess of food"
     },
     {
-      src: "/Shri Vishalakshi Mata Mandir.jpeg",
+      src: "/kashi-vishwanath-temple.jpeg",
       alt: "Shri Vishalakshi Mata Mandir",
       title: "Shri Vishalakshi Mata Mandir", 
       description: "Prominent temple dedicated to goddess Vishalakshi"
