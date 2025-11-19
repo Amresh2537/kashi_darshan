@@ -2,7 +2,7 @@
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import VideoSection from '../components/VideoSection';
+import Astro from '@/components/Astro';
 import Gallery from '../components/Gallery';
 import ContactPerson from '../components/ContactPerson';
 import BookingForm from '../components/BookingForm';
@@ -21,10 +21,12 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <VideoSection />
+     
       <Gallery />
+    
       <ContactPerson />
       <BookingForm />
+       <Astro />
       <Footer />
       <WhatsAppButton />
     </main>

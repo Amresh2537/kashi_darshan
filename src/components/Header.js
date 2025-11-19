@@ -32,8 +32,9 @@ export default function Header() {
             <a href="/" className="text-orange-800 font-medium hover:text-orange-600 transition">Home</a>
             <a href="/services" className="text-gray-700 font-medium hover:text-orange-600 transition">Services</a>
             <a href="/booking" className="text-gray-700 font-medium hover:text-orange-600 transition">Booking</a>
-            <a href="#gallery" className="text-gray-700 font-medium hover:text-orange-600 transition">Gallery</a>
-            <a href="#contact" className="text-gray-700 font-medium hover:text-orange-600 transition">Contact</a>
+            <a href="/astro" className="text-gray-700 font-medium hover:text-orange-600 transition">Astrology</a>
+            <a href="/gallery" className="text-gray-700 font-medium hover:text-orange-600 transition">Gallery</a>
+            <a href="/contact" className="text-gray-700 font-medium hover:text-orange-600 transition">Contact</a>
           </nav>
 
           {/* Mobile menu button */}
@@ -54,8 +55,9 @@ export default function Header() {
               <a href="/" className="text-orange-800 font-medium">Home</a>
               <a href="/services" className="text-gray-700 font-medium">Services</a>
               <a href="/booking" className="text-gray-700 font-medium">Booking</a>
-              <a href="#gallery" className="text-gray-700 font-medium">Gallery</a>
-              <a href="#contact" className="text-gray-700 font-medium">Contact</a>
+              <a href="/astro" className="text-gray-700 font-medium">Astrology</a>
+              <a href="/gallery" className="text-gray-700 font-medium">Gallery</a>
+              <a href="/contact" className="text-gray-700 font-medium">Contact</a>
             </div>
           </div>
         )}

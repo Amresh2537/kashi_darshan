@@ -1,8 +1,7 @@
 // src/app/booking/page.js
 import Header from '../../components/Header';
-import BookingForm from '@/components/BookingForm';
+import BookingForm from '../../components/BookingForm';
 import Footer from '../../components/Footer';
-
 
 export const metadata = {
   title: 'Book Your Kashi Yatra - KashiDarshan | Easy Online Booking',

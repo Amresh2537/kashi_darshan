@@ -1,5 +1,7 @@
 // src/app/layout.js
 import './globals.css'
+import Header from '../components/Header';
+import Footer from '../components/Footer';  
 
 export const metadata = {
   title: 'KashiDarshan - Spiritual Journey to Kashi | Book Temple Tours & Hotel Stays',
@@ -97,7 +99,8 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>{children}</body>
+       
+      <body>{children}</body>  
     </html>
   )
 }

@@ -1,8 +1,7 @@
 // src/app/booking/page.js
 import Header from '../../components/Header';
-import BookingForm from '@/components/BookingForm';
+import Gallery from '@/components/Gallery';
 import Footer from '../../components/Footer';
-
 
 export const metadata = {
   title: 'Book Your Kashi Yatra - KashiDarshan | Easy Online Booking',
@@ -13,7 +12,7 @@ export default function BookingPage() {
   return (
     <main className="min-h-screen">
       <Header />
-      <BookingForm />
+      <Gallery />
       <Footer />
     </main>
   );
