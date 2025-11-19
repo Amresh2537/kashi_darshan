@@ -1,6 +1,29 @@
 import WhatsAppButton from './WhatsAppButton';
 
 export default function Astro() {
+  // WhatsApp function
+  const handleWhatsApp = () => {
+    const phoneNumber = "919625775962";
+    const message = "Hello, I'm interested in astrology consultation with Pandit Gaurav Dixit.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  // Call function
+  const handleCall = () => {
+    window.location.href = "tel:+919625775962";
+  };
+
+  // Consultation booking function
+  const handleConsultation = () => {
+    // You can redirect to a booking page or open a modal
+    // For now, let's open WhatsApp for consultation booking
+    const phoneNumber = "919625775962";
+    const message = "I would like to book an astrology consultation with Pandit Gaurav Dixit.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-100">
       {/* Hero Section with Image */}
@@ -41,10 +64,16 @@ export default function Astro() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <button className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  onClick={handleConsultation}
+                  className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                >
                   📅 परामर्श बुक करें
                 </button>
-                <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <button 
+                  onClick={handleWhatsApp}
+                  className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                >
                   💬 WhatsApp Now
                 </button>
               </div>
@@ -168,10 +197,16 @@ export default function Astro() {
           <h3 className="text-2xl mb-6">Get Your Kundali Analyzed Today</h3>
           <p className="text-xl mb-8 opacity-90">जीवन की दिशा और समाधान के लिए आज ही संपर्क करें</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-orange-600 hover:bg-gray-100 px-10 py-5 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button 
+              onClick={handleCall}
+              className="bg-white text-orange-600 hover:bg-gray-100 px-10 py-5 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
               📞 Call Now: +91-9625775962
             </button>
-            <button className="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+            <button 
+              onClick={handleWhatsApp}
+              className="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
               💬 WhatsApp Chat
             </button>
           </div>
