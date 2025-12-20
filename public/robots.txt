@@ -1,0 +1,18 @@
+# https://www.kashidarshan.org/robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://www.kashidarshan.org/sitemap.xml
+Sitemap: https://www.kashidarshan.org/sitemap-news.xml
+
+# Crawl-delay: 10
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
