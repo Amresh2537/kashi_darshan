@@ -60,6 +60,62 @@ export default function AdminBlog() {
     'Local Guide'
   ];
 
+  const apiRequest = async (url, method = 'GET', body = null) => {
+  try {
+    console.log(`API Request: ${method} ${url}`);
+    
+    const options = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+    
+    const response = await fetch(url, options);
+    
+    console.log(`Response Status: ${response.status} ${response.statusText}`);
+    
+    // Check content type
+    const contentType = response.headers.get('content-type');
+    console.log(`Content-Type: ${contentType}`);
+    
+    if (!response.ok) {
+      // Try to get error message from response
+      let errorMessage = `Request failed with status ${response.status}`;
+      
+      if (contentType && contentType.includes('application/json')) {
+        const errorData = await response.json();
+        errorMessage = errorData.error || errorData.message || errorMessage;
+      } else {
+        const errorText = await response.text();
+        errorMessage = errorText || errorMessage;
+      }
+      
+      throw new Error(errorMessage);
+    }
+    
+    // Parse JSON response
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      console.log('Response Data:', data);
+      return data;
+    } else {
+      const text = await response.text();
+      console.log('Response Text:', text);
+      throw new Error('Expected JSON response but got: ' + text.substring(0, 100));
+    }
+  } catch (error) {
+    console.error('API Request Error:', error);
+    throw error;
+  }
+};
+
+
+
   // Location states for Uttar Pradesh/Kashidarshan region
   const upDistricts = [
     'Varanasi', 'Prayagraj', 'Ayodhya', 'Mathura', 'Vrindavan',
@@ -315,88 +371,58 @@ const fetchPosts = async () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this post? This action cannot be undone.')) return;
-    
-    try {
-      const response = await fetch(`/api/admin/blog/${id}`, {
-        method: 'DELETE'
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || `Failed to delete: ${response.status}`);
-      }
-      
-      if (data.success) {
-        setSuccess('Post deleted successfully!');
-        await fetchPosts();
-        setTimeout(() => setSuccess(''), 3000);
-      } else {
-        throw new Error(data.error || 'Failed to delete post');
-      }
-    } catch (error) {
-      console.error('Error deleting post:', error);
-      setError(error.message);
-    }
-  };
-
-
+const handleDelete = async (id) => {
+  if (!confirm('Are you sure you want to delete this post? This action cannot be undone.')) return;
   
-  const handleStatusToggle = async (post) => {
-    try {
-      const newStatus = post.status === 'published' ? 'draft' : 'published';
-      
-      const response = await fetch(`/api/admin/blog/${post._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus })
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || `Failed to update: ${response.status}`);
-      }
-      
-      if (data.success) {
-        setSuccess(`Post ${newStatus} successfully!`);
-        await fetchPosts();
-        setTimeout(() => setSuccess(''), 3000);
-      }
-    } catch (error) {
-      console.error('Error toggling status:', error);
-      setError(error.message);
+  try {
+    const data = await apiRequest(`/api/admin/blog/${id}`, 'DELETE');
+    
+    if (data.success) {
+      setSuccess('Post deleted successfully!');
+      await fetchPosts();
+      setTimeout(() => setSuccess(''), 3000);
+    } else {
+      throw new Error(data.error || 'Failed to delete post');
     }
-  };
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    setError(error.message);
+  }
+};
 
-  const handleFeaturedToggle = async (post) => {
-    try {
-      const newFeatured = !post.featured;
-      
-      const response = await fetch(`/api/admin/blog/${post._id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ featured: newFeatured })
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || `Failed to update: ${response.status}`);
-      }
-      
-      if (data.success) {
-        setSuccess(`Post ${newFeatured ? 'featured' : 'unfeatured'} successfully!`);
-        await fetchPosts();
-        setTimeout(() => setSuccess(''), 3000);
-      }
-    } catch (error) {
-      console.error('Error toggling featured:', error);
-      setError(error.message);
+const handleStatusToggle = async (post) => {
+  try {
+    const newStatus = post.status === 'published' ? 'draft' : 'published';
+    
+    const data = await apiRequest(`/api/admin/blog/${post._id}`, 'PUT', { status: newStatus });
+    
+    if (data.success) {
+      setSuccess(`Post ${newStatus} successfully!`);
+      await fetchPosts();
+      setTimeout(() => setSuccess(''), 3000);
     }
-  };
+  } catch (error) {
+    console.error('Error toggling status:', error);
+    setError(error.message);
+  }
+};
+
+const handleFeaturedToggle = async (post) => {
+  try {
+    const newFeatured = !post.featured;
+    
+    const data = await apiRequest(`/api/admin/blog/${post._id}`, 'PUT', { featured: newFeatured });
+    
+    if (data.success) {
+      setSuccess(`Post ${newFeatured ? 'featured' : 'unfeatured'} successfully!`);
+      await fetchPosts();
+      setTimeout(() => setSuccess(''), 3000);
+    }
+  } catch (error) {
+    console.error('Error toggling featured:', error);
+    setError(error.message);
+  }
+};
 
   // Filter posts
   const filteredPosts = posts.filter(post => {

@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
 
-export async function PUT(request, context) {
+export async function PUT(request, { params }) {
   try {
-    const { params } = context;
-    const id = params.id;
+    // Next.js 15: params is a Promise, need to await it
+    const { id } = await params;
     
     console.log(`Updating blog post with ID: ${id}`);
     await connectToDatabase();
@@ -45,15 +45,6 @@ export async function PUT(request, context) {
     
     console.log('Post updated successfully:', post._id);
     
-    // Trigger sitemap regeneration (async)
-    try {
-      fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/sitemap`, {
-        method: 'GET'
-      });
-    } catch (sitemapError) {
-      console.error('Error triggering sitemap:', sitemapError);
-    }
-    
     return NextResponse.json({ 
       success: true, 
       post,
@@ -87,10 +78,10 @@ export async function PUT(request, context) {
   }
 }
 
-export async function DELETE(request, context) {
+export async function DELETE(request, { params }) {
   try {
-    const { params } = context;
-    const id = params.id;
+    // Next.js 15: params is a Promise, need to await it
+    const { id } = await params;
     
     console.log(`Deleting blog post with ID: ${id}`);
     await connectToDatabase();
@@ -106,15 +97,6 @@ export async function DELETE(request, context) {
     
     console.log('Post deleted successfully:', id);
     
-    // Trigger sitemap regeneration (async)
-    try {
-      fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/sitemap`, {
-        method: 'GET'
-      });
-    } catch (sitemapError) {
-      console.error('Error triggering sitemap:', sitemapError);
-    }
-    
     return NextResponse.json({ 
       success: true, 
       message: 'Blog post deleted successfully'
@@ -127,9 +109,4 @@ export async function DELETE(request, context) {
       error: error.message 
     }, { status: 500 });
   }
-}
-
-// For dynamic routes in Next.js 13+
-export async function generateStaticParams() {
-  return [];
 }
