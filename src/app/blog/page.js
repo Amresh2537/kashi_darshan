@@ -3,12 +3,12 @@ import connectToDatabase from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
 
 export const metadata = {
-  title: 'Blog | Precision Tools Insights & Industry Guides',
-  description: 'Expert articles, guides, and insights about precision tools, grinding vices, and manufacturing equipment from Tanex Industries.',
-  keywords: 'precision tools blog, manufacturing guides, industrial equipment, CNC machining, tool room equipment',
+  title: 'कशीदर्शन | Pilgrimage Guides & Spiritual Insights',
+  description: 'Complete guides to sacred places in Uttar Pradesh. Temple histories, pilgrimage tips, spiritual significance, and travel information for Kashi, Ayodhya, Mathura and more.',
+  keywords: 'Kashi, pilgrimage, temples, Uttar Pradesh, spiritual travel, Hindu temples, travel guide, काशी, तीर्थ, मंदिर',
   openGraph: {
-    title: 'Blog | Tanex Industries - Precision Tools Insights',
-    description: 'Expert articles and guides about precision manufacturing tools and equipment',
+    title: 'कशीदर्शन | Your Guide to Sacred Uttar Pradesh',
+    description: 'Explore sacred places with detailed guides and spiritual insights',
     type: 'website',
   },
 };
@@ -31,7 +31,7 @@ async function getBlogPosts() {
   }
 }
 
-// Get categories with counts
+// Get categories with counts - Updated for Kashidarshan
 async function getCategories() {
   try {
     await connectToDatabase();
@@ -43,12 +43,12 @@ async function getCategories() {
     ]);
     
     const categoryIcons = {
-      'Industry Guide': '🏭',
-      'Buying Guide': '🛒',
-      'Maintenance': '🔧',
-      'Technical': '⚙️',
-      'Industry Trends': '📈',
-      'Case Studies': '📊'
+      'Pilgrimage Guide': '🕌',
+      'Temple History': '🏛️',
+      'Travel Tips': '🧳',
+      'Cultural Insights': '🎭',
+      'Spiritual Significance': '🕉️',
+      'Local Guide': '🗺️'
     };
     
     return categories.map(cat => ({
@@ -102,13 +102,26 @@ async function getStats() {
   }
 }
 
+// Get popular destinations from Uttar Pradesh
+async function getPopularDestinations() {
+  return [
+    { name: 'Kashi Vishwanath', slug: 'kashi-vishwanath', icon: '🕉️' },
+    { name: 'Ayodhya Ram Mandir', slug: 'ayodhya-ram-mandir', icon: '🕌' },
+    { name: 'Vrindavan', slug: 'vrindavan', icon: '🌸' },
+    { name: 'Prayagraj Sangam', slug: 'prayagraj-sangam', icon: '🌊' },
+    { name: 'Mathura', slug: 'mathura', icon: '🐚' },
+    { name: 'Chitrakoot', slug: 'chitrakoot', icon: '⛰️' },
+  ];
+}
+
 export default async function BlogHome() {
   // Fetch all data in parallel
-  const [posts, categories, featuredPost, stats] = await Promise.all([
+  const [posts, categories, featuredPost, stats, popularDestinations] = await Promise.all([
     getBlogPosts(),
     getCategories(),
     getFeaturedPost(),
-    getStats()
+    getStats(),
+    getPopularDestinations()
   ]);
 
   // Format date for display
@@ -123,64 +136,66 @@ export default async function BlogHome() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-amber-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white py-16 md:py-20 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
+      <div className="relative bg-gradient-to-br from-orange-600 to-amber-600 text-white py-20 md:py-24 overflow-hidden">
+        {/* Decorative Pattern */}
+        <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.1) 50%, transparent 51%),
-                             linear-gradient(-45deg, transparent 49%, rgba(255, 255, 255, 0.1) 50%, transparent 51%)`,
-            backgroundSize: '50px 50px'
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 15 L25 25 L35 25 Z M30 25 L30 35' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
           }}></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
+            {/* Badge */}
             <div className="mb-6">
-              <span className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-full text-sm font-medium mb-4 shadow-lg">
-                Industry Insights & Guides
+              <span className="inline-block bg-white/20 backdrop-blur-md text-white px-6 py-2.5 rounded-full text-sm font-semibold shadow-lg border border-white/30">
+                धर्म की भूमि, संस्कृति की धरोहर
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Precision Tools
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-400 mt-2">
-                Knowledge Hub
-              </span>
+            
+            {/* Main Title */}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight tracking-tight">
+              कशीदर्शन
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Expert articles, technical guides, and industry insights about precision manufacturing tools, equipment, and best practices.
+            <p className="text-2xl md:text-3xl font-light mb-6 text-white/95">
+              Uttar Pradesh Pilgrimage Guides
+            </p>
+            <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Explore sacred temples, historical sites, and spiritual destinations across Uttar Pradesh with our comprehensive guides
             </p>
             
             {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-8 mb-8">
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12 mb-10">
               <div className="text-center">
-                <div className="text-3xl font-bold mb-1">{stats.total}</div>
-                <div className="text-gray-300 text-sm">Expert Articles</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">{stats.total}</div>
+                <div className="text-white/90 text-sm font-medium uppercase tracking-wide">Sacred Guides</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-1">{stats.categories}</div>
-                <div className="text-gray-300 text-sm">Categories</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">{stats.categories}</div>
+                <div className="text-white/90 text-sm font-medium uppercase tracking-wide">Categories</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-1">45+</div>
-                <div className="text-gray-300 text-sm">Years Experience</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">12+</div>
+                <div className="text-white/90 text-sm font-medium uppercase tracking-wide">Jyotirlingas</div>
               </div>
             </div>
             
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
               <form action="/blog/search" method="GET">
-                <div className="relative">
+                <div className="relative group">
                   <input
                     type="text"
                     name="q"
-                    placeholder="Search articles, guides, and insights..."
-                    className="w-full px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    placeholder="Search temples, pilgrimages, or destinations..."
+                    className="w-full px-6 py-4 pr-14 rounded-xl bg-white/95 backdrop-blur-sm border-2 border-white/50 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white transition-all shadow-lg"
                   />
                   <button 
                     type="submit"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-lg transition-colors"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-600 hover:bg-orange-700 text-white p-3 rounded-lg transition-colors shadow-md"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -194,185 +209,270 @@ export default async function BlogHome() {
       </div>
 
       {/* Breadcrumb */}
-      <div className="bg-gray-100 py-3">
-        <div className="container mx-auto px-4">
+      <div className="bg-white border-b border-gray-200 py-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="text-sm">
             <ol className="flex items-center space-x-2">
               <li>
-                <Link href="/" className="text-blue-600 hover:text-blue-800 transition-colors">
+                <Link href="/" className="text-orange-600 hover:text-orange-700 transition-colors font-medium">
                   Home
                 </Link>
               </li>
-              <li className="text-gray-500">/</li>
-              <li className="text-gray-700 font-medium">Blog</li>
+              <li className="text-gray-400">/</li>
+              <li className="text-gray-700 font-semibold">Pilgrimage Guides</li>
             </ol>
           </nav>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Popular Destinations */}
+        <section className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-3">
+              Popular Pilgrimage Destinations
+            </h2>
+            <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {popularDestinations.map((destination) => (
+              <Link
+                key={destination.slug}
+                href={`/blog/destination/${destination.slug}`}
+                className="group bg-white hover:bg-orange-50 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-orange-200"
+              >
+                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  {destination.icon}
+                </div>
+                <h3 className="font-bold text-gray-900 group-hover:text-orange-600 transition-colors text-sm leading-tight">
+                  {destination.name}
+                </h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Featured Post */}
         {featuredPost && (
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-              <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-              </svg>
-              Featured Article
-            </h2>
-            <div key={featuredPost._id} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition-shadow duration-300">
+          <section className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">
+                Featured Destination
+              </h2>
+              <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+            </div>
+            
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 hover:shadow-3xl transition-shadow duration-500">
               <div className="md:flex">
-                <div className="md:w-2/5 bg-gradient-to-br from-gray-900 to-blue-900 p-8 md:p-12 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-5xl font-bold text-white mb-2">
-                      {featuredPost.title.split(' ')[0].match(/\d+/)?.[0] || '10'}
+                <div className="md:w-2/5 bg-gradient-to-br from-orange-600 to-amber-600 p-12 flex items-center justify-center">
+                  <div className="text-center text-white">
+                    <div className="text-6xl mb-6">🕉️</div>
+                    <div className="text-white/90 text-sm uppercase tracking-widest font-semibold mb-4">
+                      {featuredPost.location?.district || 'Sacred Site'}
                     </div>
-                    <div className="text-white/80 text-sm uppercase tracking-wider">
-                      {featuredPost.category.toUpperCase()}
-                    </div>
-                    <div className="mt-4">
-                      <span className="inline-block bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                        {featuredPost.category}
-                      </span>
-                    </div>
+                    <span className="inline-block bg-white/20 backdrop-blur-sm text-white px-5 py-2 rounded-full text-sm font-semibold border border-white/30">
+                      {featuredPost.category}
+                    </span>
                   </div>
                 </div>
-                <div className="md:w-3/5 p-8 md:p-12">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-gray-500 text-sm">{formatDate(featuredPost.date)}</span>
+                <div className="md:w-3/5 p-10 md:p-12">
+                  <div className="flex flex-wrap items-center gap-3 mb-5 text-sm text-gray-600">
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      {formatDate(featuredPost.date)}
+                    </span>
                     <span className="text-gray-300">•</span>
-                    <span className="text-gray-500 text-sm">{featuredPost.readTime || '5 min read'}</span>
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {featuredPost.readTime || '5 min read'}
+                    </span>
+                    {featuredPost.location?.place && (
+                      <>
+                        <span className="text-gray-300">•</span>
+                        <span className="flex items-center gap-1 text-orange-600 font-medium">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          {featuredPost.location.place}
+                        </span>
+                      </>
+                    )}
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
                     {featuredPost.title}
                   </h3>
-                  <p className="text-gray-700 mb-6 leading-relaxed line-clamp-3">
+                  {featuredPost.hindiTitle && (
+                    <h4 className="text-xl text-gray-700 mb-4 font-serif">
+                      {featuredPost.hindiTitle}
+                    </h4>
+                  )}
+                  <p className="text-gray-700 text-lg mb-8 leading-relaxed line-clamp-3">
                     {featuredPost.description}
                   </p>
                   <div className="flex items-center justify-between">
                     <Link 
                       href={`/blog/${featuredPost.slug}`}
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                      className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
                     >
-                      Read Full Article
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      Explore Destination
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </Link>
-                    <span className="text-gray-500 text-sm">
-                      Industry Expert Guide
-                    </span>
+                    {featuredPost.languages && featuredPost.languages.length > 0 && (
+                      <div className="flex gap-2">
+                        {featuredPost.languages.map(lang => (
+                          <span key={lang} className="text-xs bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg font-medium">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         )}
 
         {/* Categories */}
         {categories.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-              <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              Browse by Category
-            </h2>
+          <section className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">
+                Browse by Category
+              </h2>
+              <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+            </div>
+            
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {categories.map((category) => (
                 <Link
                   key={category.name}
                   href={`/blog/category/${category.name.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 group"
+                  className="group bg-white hover:bg-orange-50 p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-orange-200"
                 >
-                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                     {category.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
+                  <h3 className="font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
                     {category.name}
                   </h3>
-                  <div className="text-sm text-gray-500">
-                    {category.count} {category.count === 1 ? 'article' : 'articles'}
+                  <div className="text-sm text-gray-600 font-medium">
+                    {category.count} {category.count === 1 ? 'guide' : 'guides'}
                   </div>
                 </Link>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* All Posts */}
-        <div className="mb-16" id="all-articles">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              Latest Articles
-            </h2>
-            <div className="flex items-center gap-2">
-              <span className="text-gray-600 text-sm">Sort by:</span>
-              <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <section className="mb-20" id="all-articles">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">
+                Latest Guides
+              </h2>
+              <div className="w-24 h-1 bg-orange-600 rounded-full"></div>
+            </div>
+            <div className="flex items-center gap-3">
+              <label htmlFor="sort" className="text-gray-700 text-sm font-medium">Sort by:</label>
+              <select 
+                id="sort"
+                className="border-2 border-gray-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent bg-white font-medium"
+              >
                 <option>Newest</option>
-                <option>Most Read</option>
+                <option>Most Popular</option>
                 <option>Alphabetical</option>
+                <option>By Location</option>
               </select>
             </div>
           </div>
           
           {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">No articles yet</h3>
-              <p className="mt-2 text-gray-500">
-                Check back soon for new articles and insights.
+            <div className="text-center py-20 bg-white rounded-3xl shadow-lg border border-gray-200">
+              <div className="text-7xl mb-6">🕉️</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No guides yet</h3>
+              <p className="text-gray-600 text-lg">
+                We're preparing sacred guides for you. Check back soon!
               </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
-                <article key={post._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
+                <article key={post._id} className="group bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-orange-200 overflow-hidden">
                   {post.image?.url && (
-                    <div className="h-48 overflow-hidden">
+                    <div className="relative h-56 overflow-hidden">
                       <img
                         src={post.image.url}
                         alt={post.image.alt || post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
+                      {post.location?.place && (
+                        <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-gray-900 px-3 py-1.5 rounded-full text-xs font-semibold shadow-md flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          {post.location.place}
+                        </div>
+                      )}
                     </div>
                   )}
-                  <div className="p-6">
+                  <div className="p-7">
                     <div className="flex items-center justify-between mb-4">
-                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                        post.category === 'Industry Guide' ? 'bg-orange-100 text-orange-800' :
-                        post.category === 'Buying Guide' ? 'bg-blue-100 text-blue-800' :
-                        post.category === 'Maintenance' ? 'bg-green-100 text-green-800' :
-                        post.category === 'Technical' ? 'bg-purple-100 text-purple-800' :
-                        post.category === 'Industry Trends' ? 'bg-indigo-100 text-indigo-800' :
-                        post.category === 'Case Studies' ? 'bg-pink-100 text-pink-800' :
+                      <span className={`inline-block px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                        post.category === 'Pilgrimage Guide' ? 'bg-orange-100 text-orange-800' :
+                        post.category === 'Temple History' ? 'bg-blue-100 text-blue-800' :
+                        post.category === 'Travel Tips' ? 'bg-green-100 text-green-800' :
+                        post.category === 'Cultural Insights' ? 'bg-purple-100 text-purple-800' :
+                        post.category === 'Spiritual Significance' ? 'bg-indigo-100 text-indigo-800' :
                         'bg-gray-100 text-gray-800'
                       }`}>
                         {post.category}
                       </span>
-                      <span className="text-gray-500 text-sm">{post.readTime || '5 min read'}</span>
+                      <span className="text-gray-500 text-sm font-medium flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {post.readTime || '5 min read'}
+                      </span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors line-clamp-2">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors line-clamp-2 leading-tight">
                       <Link href={`/blog/${post.slug}`}>
                         {post.title}
                       </Link>
                     </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">
+                    {post.hindiTitle && (
+                      <h4 className="text-gray-700 mb-3 font-serif line-clamp-1">
+                        {post.hindiTitle}
+                      </h4>
+                    )}
+                    <p className="text-gray-600 mb-5 line-clamp-3 leading-relaxed">
                       {post.description}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-500 text-sm">{formatDate(post.date)}</span>
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <div className="text-gray-500 text-sm font-medium">
+                        {formatDate(post.date)}
+                        {post.location?.district && (
+                          <span className="ml-2 text-orange-600">
+                            • {post.location.district}
+                          </span>
+                        )}
+                      </div>
                       <Link 
                         href={`/blog/${post.slug}`}
-                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-semibold group"
+                        className="inline-flex items-center gap-1.5 text-orange-600 hover:text-orange-700 text-sm font-bold group"
                       >
-                        Read more
+                        Read More
                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
@@ -383,18 +483,19 @@ export default async function BlogHome() {
               ))}
             </div>
           )}
-        </div>
+        </section>
 
         {/* Popular Tags */}
         {posts.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-              <svg className="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-              </svg>
-              Popular Topics
-            </h2>
-            <div className="flex flex-wrap gap-3">
+          <section className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-3">
+                Popular Topics
+              </h2>
+              <div className="w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-3">
               {posts.slice(0, 10).flatMap(post => 
                 Array.isArray(post.keywords) ? post.keywords : []
               )
@@ -406,77 +507,87 @@ export default async function BlogHome() {
                 <Link 
                   key={index}
                   href={`/blog/tag/${keyword.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:scale-105"
+                  className="bg-orange-100 hover:bg-orange-200 text-orange-800 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 hover:shadow-md border-2 border-orange-200"
                 >
                   #{keyword}
                 </Link>
               ))}
             </div>
-          </div>
+          </section>
         )}
 
         {/* Newsletter Subscription */}
-        <div className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 rounded-2xl p-8 md:p-12 text-center text-white overflow-hidden mb-12">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-              backgroundSize: '20px 20px'
-            }}></div>
-          </div>
-          
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <div className="inline-block p-3 bg-blue-500/20 rounded-full mb-6">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+        <section className="mb-16">
+          <div className="relative bg-gradient-to-br from-orange-600 to-amber-600 rounded-3xl p-12 md:p-16 text-center text-white overflow-hidden shadow-2xl">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+                backgroundSize: '32px 32px'
+              }}></div>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">Stay Updated with Industry Insights</h3>
-            <p className="text-blue-200 mb-6 max-w-xl mx-auto">
-              Subscribe to our newsletter and receive the latest articles, technical guides, and industry news directly in your inbox.
-            </p>
-            <form className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-1 px-4 py-3 rounded-lg border border-blue-300 bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
-                />
-                <button
-                  type="submit"
-                  className="bg-white text-blue-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold transition-colors duration-300 whitespace-nowrap"
-                >
-                  Subscribe Now
-                </button>
+            
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <div className="inline-block p-4 bg-white/20 backdrop-blur-sm rounded-2xl mb-8 border border-white/30">
+                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
               </div>
-              <p className="text-blue-200 text-xs mt-3">
-                We respect your privacy. Unsubscribe at any time.
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">Stay Updated with Spiritual Insights</h3>
+              <p className="text-white/95 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+                Subscribe to our newsletter and receive the latest pilgrimage guides, temple histories, and spiritual news directly in your inbox
               </p>
-            </form>
+              <form className="max-w-md mx-auto">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="flex-1 px-5 py-4 rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white focus:bg-white/20 transition-all"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-xl whitespace-nowrap"
+                  >
+                    Subscribe Now
+                  </button>
+                </div>
+                <p className="text-white/90 text-xs mt-4 font-medium">
+                  🔒 We respect your privacy. Unsubscribe at any time.
+                </p>
+              </form>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-center text-white">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4">Need Expert Guidance?</h3>
-          <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
-            Our team of precision tools experts is ready to help you choose the right equipment for your specific needs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contact"
-              className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg"
-            >
-              Get Professional Advice
-            </Link>
-            <a 
-              href="tel:+919717400435"
-              className="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105"
-            >
-              Call +91 9717400435
-            </a>
+        <section>
+          <div className="bg-gradient-to-br from-orange-600 to-amber-600 rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">Need Pilgrimage Assistance?</h3>
+            <p className="text-white/95 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+              Our team of spiritual guides and travel experts can help you plan your perfect pilgrimage journey across Uttar Pradesh
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/contact"
+                className="inline-flex items-center justify-center bg-white text-orange-600 hover:bg-gray-100 px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Contact Our Guides
+              </Link>
+              <Link 
+                href="/plan-pilgrimage"
+                className="inline-flex items-center justify-center bg-transparent border-2 border-white hover:bg-white/10 px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Plan Your Pilgrimage
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
