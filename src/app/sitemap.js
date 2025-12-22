@@ -1,78 +1,131 @@
-import connectToDatabase from '@/lib/mongodb';
-import BlogPost from '@/models/BlogPost';
-import UserBlogPost from '@/models/UserBlogPost';
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Revalidate every hour
 
 export default async function sitemap() {
   const baseUrl = 'https://www.kashidarshan.org';
+  const currentDate = new Date();
   
   try {
+    // Dynamically import to avoid build-time errors
+    const { default: connectToDatabase } = await import('@/lib/mongodb');
+    const { default: BlogPost } = await import('@/models/BlogPost');
+    
     await connectToDatabase();
     
-    const [mainPosts, userPosts] = await Promise.all([
-      BlogPost.find({ status: 'published' }).select('slug updatedAt').lean(),
-      UserBlogPost.find({ status: 'approved' }).select('slug updatedAt').lean()
-    ]);
+    // Fetch only required fields for performance
+    const mainPosts = await BlogPost.find({ 
+      status: 'published' 
+    })
+    .select('slug updatedAt')
+    .sort({ updatedAt: -1 })
+    .limit(500) // Limit to 500 posts for performance
+    .lean();
     
-    // Static pages
+    // Static pages with priority
     const staticPages = [
       {
         url: baseUrl,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 1,
+        lastModified: currentDate,
+        changeFrequency: 'daily',
+        priority: 1.0,
       },
       {
-        url: `${baseUrl}/blog`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
+        url: `${baseUrl}/services`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
         priority: 0.9,
       },
       {
-        url: `${baseUrl}/user/blog/submit`,
-        lastModified: new Date(),
+        url: `${baseUrl}/packages`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: currentDate,
+        changeFrequency: 'daily',
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/contact`,
+        lastModified: currentDate,
         changeFrequency: 'monthly',
         priority: 0.7,
       },
       {
         url: `${baseUrl}/about`,
-        lastModified: new Date(),
+        lastModified: currentDate,
         changeFrequency: 'monthly',
+        priority: 0.7,
+      },
+      {
+        url: `${baseUrl}/gallery`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      },
+      {
+        url: `${baseUrl}/privacy-policy`,
+        lastModified: currentDate,
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
+      {
+        url: `${baseUrl}/terms-of-service`,
+        lastModified: currentDate,
+        changeFrequency: 'yearly',
+        priority: 0.3,
+      },
+    ];
+
+    // Main blog posts
+    const mainBlogUrls = mainPosts.map(post => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: post.updatedAt || currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    }));
+
+    // Optional: Categories pages if you have them
+    const categories = ['pilgrimage-guide', 'temple-history', 'travel-tips', 'cultural-insights', 'spiritual-significance', 'local-guide'];
+    const categoryUrls = categories.map(category => ({
+      url: `${baseUrl}/blog/category/${category}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.6,
+    }));
+
+    return [...staticPages, ...categoryUrls, ...mainBlogUrls];
+    
+  } catch (error) {
+    console.error('Error generating sitemap:', error);
+    
+    // Fallback to static pages if database fails
+    return [
+      {
+        url: baseUrl,
+        lastModified: currentDate,
+        changeFrequency: 'daily',
+        priority: 1.0,
+      },
+      {
+        url: `${baseUrl}/services`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly',
+        priority: 0.9,
+      },
+      {
+        url: `${baseUrl}/blog`,
+        lastModified: currentDate,
+        changeFrequency: 'daily',
         priority: 0.8,
       },
       {
         url: `${baseUrl}/contact`,
-        lastModified: new Date(),
+        lastModified: currentDate,
         changeFrequency: 'monthly',
-        priority: 0.8,
-      },
-    ];
-    
-    // Main blog posts
-    const mainBlogUrls = mainPosts.map(post => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    }));
-    
-    // User blog posts
-    const userBlogUrls = userPosts.map(post => ({
-      url: `${baseUrl}/stories/${post.slug}`,
-      lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    }));
-    
-    return [...staticPages, ...mainBlogUrls, ...userBlogUrls];
-  } catch (error) {
-    console.error('Error generating sitemap:', error);
-    // Return at least static pages if database fails
-    return [
-      {
-        url: baseUrl,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 1,
+        priority: 0.7,
       },
     ];
   }
