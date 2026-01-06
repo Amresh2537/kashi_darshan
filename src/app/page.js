@@ -95,8 +95,8 @@ const localBusinessSchema = {
 };
 
 export const metadata = {
-  title: 'कशीदर्शन | Book Complete Kashi Yatra Package 2025 | Temple Tours & Hotel Stay',
-  description: 'Complete Kashi Yatra package with AC/Non-AC hotel stays, guided temple tours, Ganga Aarti, VIP darshan booking, and spiritual experiences in Varanasi. Book now for 2025 pilgrimage.',
+  title: 'कशीदर्शन | Book Complete Kashi Yatra Package 2026 | Temple Tours & Hotel Stay',
+  description: 'Complete Kashi Yatra package with AC/Non-AC hotel stays, guided temple tours, Ganga Aarti, VIP darshan booking, and spiritual experiences in Varanasi. Book now for 2026 pilgrimage.',
   keywords: [
     'Kashi Yatra package',
     'Varanasi hotel booking',
@@ -107,13 +107,13 @@ export const metadata = {
     'वाराणसी होटल बुकिंग',
     'गंगा आरती दर्शन',
     'वीआईपी दर्शन बुकिंग',
-    '2025 pilgrimage packages'
+    '2026 pilgrimage packages'
   ].join(', '),
   
   // Open Graph for Social Media
   openGraph: {
-    title: 'कशीदर्शन | Complete Kashi Yatra Package 2025',
-    description: 'Experience divine Kashi with guided temple tours, comfortable stays, and spiritual ceremonies. Book your 2025 pilgrimage now.',
+    title: 'कशीदर्शन | Complete Kashi Yatra Package 2026',
+    description: 'Experience divine Kashi with guided temple tours, comfortable stays, and spiritual ceremonies. Book your 2026 pilgrimage now.',
     url: 'https://www.kashidarshan.org',
     siteName: 'कशीदर्शन - KashiDarshan',
     images: [
@@ -132,7 +132,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'कशीदर्शन | Complete Kashi Yatra Package',
-    description: 'Book your 2025 Kashi pilgrimage with temple tours, hotel stays, and spiritual experiences',
+    description: 'Book your 2026 Kashi pilgrimage with temple tours, hotel stays, and spiritual experiences',
     images: ['https://www.kashidarshan.org/twitter-image.jpg'],
     creator: '@kashidarshan',
     site: '@kashidarshan',
