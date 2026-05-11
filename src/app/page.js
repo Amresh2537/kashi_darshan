@@ -179,18 +179,16 @@ export const metadata = {
     statusBarStyle: 'black-translucent',
   },
   
-  // Theme Color
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f97316' }, // orange-500
-    { media: '(prefers-color-scheme: dark)', color: '#ea580c' },  // orange-600
+    { media: '(prefers-color-scheme: light)', color: '#f97316' },
+    { media: '(prefers-color-scheme: dark)', color: '#ea580c' },
   ],
-  
-  // Viewport
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
 };
 
 export default function Home() {

@@ -23,6 +23,7 @@ export default function Footer() {
               <li><a href="/" className="text-amber-100 hover:text-amber-300 transition">Home</a></li>
               <li><a href="/services" className="text-amber-100 hover:text-amber-300 transition">Services</a></li>
               <li><a href="/booking" className="text-amber-100 hover:text-amber-300 transition">Booking</a></li>
+              <li><a href="/donation" className="text-amber-100 hover:text-amber-300 transition">Donation</a></li>
               <li><a href="#gallery" className="text-amber-100 hover:text-amber-300 transition">Gallery</a></li>
             </ul>
           </div>

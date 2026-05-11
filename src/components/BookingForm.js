@@ -3,6 +3,32 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+async function notifySubmission(title, body) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  if (!('Notification' in window)) {
+    window.alert(body);
+    return;
+  }
+
+  if (Notification.permission === 'granted') {
+    new Notification(title, { body });
+    return;
+  }
+
+  if (Notification.permission !== 'denied') {
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      new Notification(title, { body });
+      return;
+    }
+  }
+
+  window.alert(body);
+}
+
 export default function BookingForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -44,14 +70,22 @@ export default function BookingForm() {
       const result = await response.json();
 
       if (result.success) {
-        // Redirect to thank you page
-        router.push('/thank-you');
+        setSubmitStatus('success');
+        await notifySubmission(
+          'Booking Request Submitted',
+          `Thank you ${formData.name}. Your booking request has been submitted.`
+        );
+
+        setTimeout(() => {
+          router.push('/thank-you');
+        }, 1000);
       } else {
         throw new Error(result.message);
       }
     } catch (error) {
       console.error('Error:', error);
       setSubmitStatus('error');
+      await notifySubmission('Booking Submission Failed', 'Booking request submit nahi hua. Please retry.');
     } finally {
       setIsSubmitting(false);
     }
@@ -69,6 +103,12 @@ export default function BookingForm() {
           {submitStatus === 'error' && (
             <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center">
               <p>❌ There was an error submitting your request. Please try again or contact us directly.</p>
+            </div>
+          )}
+
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
+              <p>Your booking request was submitted successfully. Redirecting...</p>
             </div>
           )}
 
