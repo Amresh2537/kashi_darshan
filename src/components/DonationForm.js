@@ -354,70 +354,83 @@ export default function DonationForm({ donationType = 'donation' }) {
 
       {showQr && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-sm rounded-xl bg-white p-6 text-center shadow-2xl">
-            <h3 className="text-2xl font-bold text-orange-800">Complete Your Payment</h3>
-            <p className="mt-2 text-sm text-gray-600">Select your preferred payment method</p>
+          <div className="w-full max-w-2xl rounded-xl bg-white p-6 shadow-2xl">
+            <h3 className="text-2xl font-bold text-orange-800 text-center">Complete Your Payment</h3>
+            <p className="mt-2 text-center text-lg font-semibold text-gray-700">
+              Amount to Pay: <span className="text-orange-600">₹{formData.amount}</span>
+            </p>
             
-            {!selectedPaymentMethod ? (
-              <div className="mt-6 space-y-3">
-                <button
-                  onClick={() => setSelectedPaymentMethod('phonepe')}
-                  className="w-full rounded-lg border-2 border-purple-500 bg-purple-50 px-4 py-3 font-semibold text-purple-700 hover:bg-purple-100"
-                >
-                  💜 PhonePe
-                </button>
-                <button
-                  onClick={() => setSelectedPaymentMethod('googlepay')}
-                  className="w-full rounded-lg border-2 border-blue-500 bg-blue-50 px-4 py-3 font-semibold text-blue-700 hover:bg-blue-100"
-                >
-                  💙 Google Pay
-                </button>
-                <button
-                  onClick={() => setSelectedPaymentMethod('paytm')}
-                  className="w-full rounded-lg border-2 border-cyan-500 bg-cyan-50 px-4 py-3 font-semibold text-cyan-700 hover:bg-cyan-100"
-                >
-                  💎 PayTM
-                </button>
+            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+              {/* QR Code Section */}
+              <div className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-6">
+                <p className="mb-4 text-sm font-semibold text-gray-700">Scan QR Code to Pay</p>
+                <img src="/upi-scanner.jpeg" alt="Donation UPI QR Code" className="h-[260px] w-[260px] rounded-lg border-2 border-orange-300 object-contain" />
+                <p className="mt-3 text-xs text-gray-600 text-center">UPI ID: {upiId}</p>
               </div>
-            ) : (
-              <div className="mt-6 space-y-4">
-                <p className="text-sm text-gray-700">
-                  Send payment of <span className="font-bold">₹{formData.amount}</span> to:
-                </p>
-                <div className="rounded-lg bg-gray-100 p-4">
-                  <p className="text-xs text-gray-600 mb-2">UPI ID</p>
-                  <p className="text-lg font-bold text-gray-800 break-all">{upiId}</p>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(upiId);
-                      alert('UPI ID copied to clipboard!');
-                    }}
-                    className="mt-2 text-sm text-orange-600 hover:text-orange-700 font-semibold"
-                  >
-                    Copy UPI ID
-                  </button>
-                </div>
-                <a
-                  href={`upi://pay?pa=${upiId}&pn=KashiDarshan&am=${formData.amount}&tn=Donation`}
-                  className="mt-4 inline-block rounded-lg bg-orange-600 px-6 py-2 text-sm font-semibold text-white hover:bg-orange-700"
-                >
-                  Open in App
-                </a>
-                <button
-                  onClick={() => setSelectedPaymentMethod('')}
-                  className="mt-2 block w-full rounded-lg bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300"
-                >
-                  Change Payment Method
-                </button>
+
+              {/* Payment Methods Section */}
+              <div className="flex flex-col justify-center space-y-3">
+                <p className="text-sm font-semibold text-gray-700 text-center">Or Select Payment App</p>
+                
+                {!selectedPaymentMethod ? (
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => setSelectedPaymentMethod('phonepe')}
+                      className="w-full rounded-lg border-2 border-purple-500 bg-purple-50 px-4 py-3 font-semibold text-purple-700 hover:bg-purple-100"
+                    >
+                      💜 PhonePe
+                    </button>
+                    <button
+                      onClick={() => setSelectedPaymentMethod('googlepay')}
+                      className="w-full rounded-lg border-2 border-blue-500 bg-blue-50 px-4 py-3 font-semibold text-blue-700 hover:bg-blue-100"
+                    >
+                      💙 Google Pay
+                    </button>
+                    <button
+                      onClick={() => setSelectedPaymentMethod('paytm')}
+                      className="w-full rounded-lg border-2 border-cyan-500 bg-cyan-50 px-4 py-3 font-semibold text-cyan-700 hover:bg-cyan-100"
+                    >
+                      💎 PayTM
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="rounded-lg bg-gray-100 p-4">
+                      <p className="text-xs text-gray-600 mb-2">UPI ID</p>
+                      <p className="text-lg font-bold text-gray-800 break-all">{upiId}</p>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(upiId);
+                          alert('UPI ID copied to clipboard!');
+                        }}
+                        className="mt-2 text-sm text-orange-600 hover:text-orange-700 font-semibold"
+                      >
+                        Copy UPI ID
+                      </button>
+                    </div>
+                    <a
+                      href={`upi://pay?pa=${upiId}&pn=KashiDarshan&am=${formData.amount}&tn=Donation`}
+                      className="mt-2 inline-block w-full text-center rounded-lg bg-orange-600 px-6 py-2 text-sm font-semibold text-white hover:bg-orange-700"
+                    >
+                      Open in App
+                    </a>
+                    <button
+                      onClick={() => setSelectedPaymentMethod('')}
+                      className="block w-full rounded-lg bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-300"
+                    >
+                      Change App
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
             
             <button
               onClick={() => {
                 setShowQr(false);
                 setSelectedPaymentMethod('');
               }}
-              className="mt-4 block w-full rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black"
+              className="mt-6 block w-full rounded-lg bg-gray-800 px-4 py-2 text-sm font-semibold text-white hover:bg-black"
             >
               Close
             </button>
