@@ -237,7 +237,13 @@ export default function DonationForm({ donationType = 'donation' }) {
           <ul>
             {Object.entries(donationPageConfig).map(([key, item]) => (
               <li key={item.route} className={key === donationType ? 'active' : ''}>
-                <Link href={item.route}>{item.title}</Link>
+                {key === 'donation' ? (
+                  <Link href={item.route}>{item.title}</Link>
+                ) : (
+                  <span aria-disabled="true" className="cursor-not-allowed text-gray-400">
+                    {item.title}
+                  </span>
+                )}
               </li>
             ))}
           </ul>
