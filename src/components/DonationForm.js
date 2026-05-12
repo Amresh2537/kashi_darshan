@@ -84,6 +84,15 @@ const defaultFormData = {
   agreeTerms: false,
 };
 
+const generateCaptcha = () => {
+  const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+  let generated = '';
+  for (let i = 0; i < 5; i += 1) {
+    generated += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return generated;
+};
+
 const paymentLink = process.env.NEXT_PUBLIC_DONATION_PAYMENT_LINK || '/upi-scanner.jpeg';
 
 async function notifySubmission(title, body) {
@@ -118,7 +127,7 @@ export default function DonationForm({ donationType = 'donation' }) {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [showQr, setShowQr] = useState(false);
-  const [captchaText, setCaptchaText] = useState('');
+  const [captchaText, setCaptchaText] = useState(() => generateCaptcha());
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
   const upiId = '9625775962-2@ybl';
@@ -130,7 +139,6 @@ export default function DonationForm({ donationType = 'donation' }) {
       ...prev,
       donationDate: new Date().toISOString().slice(0, 10),
     }));
-    refreshCaptcha();
   }, []);
 
   const onChange = (event) => {
@@ -142,12 +150,11 @@ export default function DonationForm({ donationType = 'donation' }) {
   };
 
   const refreshCaptcha = () => {
-    const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
-    let generated = '';
-    for (let i = 0; i < 5; i += 1) {
-      generated += chars[Math.floor(Math.random() * chars.length)];
-    }
-    setCaptchaText(generated);
+    setCaptchaText(generateCaptcha());
+    setFormData((prev) => ({
+      ...prev,
+      captchaInput: '',
+    }));
   };
 
   const resetForm = () => {
@@ -173,7 +180,8 @@ export default function DonationForm({ donationType = 'donation' }) {
       return;
     }
 
-    if (formData.captchaInput.trim().toUpperCase() !== captchaText) {
+    const userCaptchaInput = formData.captchaInput.trim().toUpperCase();
+    if (userCaptchaInput !== captchaText || !captchaText) {
       setErrorMessage('Invalid captcha code. Please try again.');
       refreshCaptcha();
       return;
