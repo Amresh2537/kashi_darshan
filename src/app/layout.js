@@ -98,6 +98,22 @@ export default function RootLayout({ children }) {
             })
           }}
         />
+
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `(function(d, t) {
+    var g = d.createElement(t),
+    s = d.getElementsByTagName(t)[0];
+    g.src = "https://webpush.leminai.com/cdn/integrate.js";
+    var u = document.createAttribute("webpush-client-id");
+    var d = document.createAttribute("webpush-domain-id");
+    u.value = "69fef16a465d8"; d.value = "6a03fd6bf34ae";
+    g.attributes.setNamedItem(u); g.attributes.setNamedItem(d);
+    s.parentNode.insertBefore(g, s);
+}(document, "script"));`,
+          }}
+        />
       </head>
        
       <body>{children}</body>  
