@@ -3,45 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const indianStatesAndUts = [
-  'Andhra Pradesh',
-  'Arunachal Pradesh',
-  'Assam',
-  'Bihar',
-  'Chhattisgarh',
-  'Goa',
-  'Gujarat',
-  'Haryana',
-  'Himachal Pradesh',
-  'Jharkhand',
-  'Karnataka',
-  'Kerala',
-  'Madhya Pradesh',
-  'Maharashtra',
-  'Manipur',
-  'Meghalaya',
-  'Mizoram',
-  'Nagaland',
-  'Odisha',
-  'Punjab',
-  'Rajasthan',
-  'Sikkim',
-  'Tamil Nadu',
-  'Telangana',
-  'Tripura',
-  'Uttar Pradesh',
-  'Uttarakhand',
-  'West Bengal',
-  'Andaman and Nicobar Islands',
-  'Chandigarh',
-  'Dadra and Nagar Haveli and Daman and Diu',
-  'Delhi',
-  'Jammu and Kashmir',
-  'Ladakh',
-  'Lakshadweep',
-  'Puducherry',
-];
-
 const donationPageConfig = {
   donation: {
     title: 'Donation',
@@ -73,7 +34,7 @@ const defaultFormData = {
   donationDate: '',
   amount: '',
   pan: '',
-  country: 'India',
+  country: '',
   state: '',
   city: '',
   landmark: '',
@@ -282,21 +243,12 @@ export default function DonationForm({ donationType = 'donation' }) {
                 <FormField label="Pan Number">
                   <input name="pan" value={formData.pan} onChange={onChange} className="input" placeholder="Enter Pan number" />
                 </FormField>
-                <FormField label="Select Country*">
-                  <select name="country" value={formData.country} onChange={onChange} required className="input">
-                    <option value="India">India</option>
-                    <option value="Nepal">Nepal</option>
-                  </select>
+                <FormField label="Country*">
+                  <input name="country" value={formData.country} onChange={onChange} required className="input" placeholder="Enter Country" />
                 </FormField>
-                <FormField label="Select State*">
-                  <select name="state" value={formData.state} onChange={onChange} required className="input">
-                    <option value="">Select State</option>
-                    {indianStatesAndUts.map((stateName) => (
-                      <option key={stateName} value={stateName}>{stateName}</option>
-                    ))}
-                  </select>
+                <FormField label="State*">
+                  <input name="state" value={formData.state} onChange={onChange} required className="input" placeholder="Enter State" />
                 </FormField>
-
                 <FormField label="Select City*">
                   <input name="city" value={formData.city} onChange={onChange} required className="input" placeholder="Select City" />
                 </FormField>
